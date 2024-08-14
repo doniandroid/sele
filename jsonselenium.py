@@ -154,9 +154,15 @@ try:
     # Tampilkan DataFrame
     df1.index = df1.index + 1
 
+    with open('output.json', 'r') as f:
+        existing_data = json.load(f)
+    except FileNotFoundError:
+    existing_data = {}
+    existing_data.update(df1)
+        
     # Simpan data dalam format JSON
     with open('output.json', 'w') as f:
-        json.dump(df1.to_dict(orient='records'), f, indent=4)
+        json.dump(existing_data.to_dict(orient='records'), f, indent=4)
 
 finally:
     driver.quit()
