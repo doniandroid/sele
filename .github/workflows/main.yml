@@ -31,6 +31,7 @@ jobs:
       - name: Run Selenium script
         run: |
           python jsonselenium.py
+          python wargajiwa.py
 
       - name: Upload JSON artifact
         uses: actions/upload-artifact@v3
