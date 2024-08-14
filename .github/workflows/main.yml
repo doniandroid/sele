@@ -1,9 +1,9 @@
 name: Selenium Test
 
 on:
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
   repository_dispatch:
     types: [post-http]
 
