@@ -1,0 +1,45 @@
+name: Selenium Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium
+          pip install webdriver-manager
+          pip install pandas
+          # Install other dependencies if needed
+
+      - name: Run Selenium script
+        run: |
+          python jsonselenium.py
+
+      - name: Upload JSON artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: selenium-output
+          path: output.json
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          publish_branch: main
+          publish_dir: ./  # Sesuaikan dengan direktori tempat output.json dan index.html berada
+          commit_message: "Deploy JSON and site"
