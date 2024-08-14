@@ -1,4 +1,4 @@
-import json
+# import json
 # from selenium import webdriver
 # from selenium.webdriver.common.by import By
 # from selenium.webdriver.chrome.service import Service
@@ -25,7 +25,10 @@ import json
 #     'title': driver.title,
 #     'url': driver.current_url
 # }
+# with open('output.json', 'w') as f:
+#     json.dump(data, f)
 
+import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -36,33 +39,21 @@ from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import pandas as pd
-# driver_service = ChromeService(executable_path='/usr/local/bin/chromedriver')
+
 chrome_driver_path = "/usr/local/bin/chromedriver"
 # Konfigurasi opsi Chrome
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Menjalankan Chrome dalam mode headless
-# chrome_options.add_argument("--no-sandbox")
-# chrome_options.add_argument("--disable-dev-shm-usage")
-# chrome_options.add_argument("--disable-javascript")
-
 
 # Inisialisasi driver Chrome
-# driver_service = Service(executable_path=chrome_driver_path)
 driver_service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=driver_service, options=chrome_options)
 
-
-# Inisialisasi WebDriver (sesuaikan path ke ChromeDriver Anda)
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-# driver = webdriver.Chrome(service=Service(chromedriver_path.install()), options=chrome_options)
-
-
-
-# try:
+try:
     # Buka URL halaman login
     driver.get("https://simpkk.kabsemarangtourism.id/index.php/login")
 
-        # Tunggu hingga elemen input username muncul
+    # Tunggu hingga elemen input username muncul
     WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.NAME, "username"))
     )
@@ -126,12 +117,9 @@ driver = webdriver.Chrome(service=driver_service, options=chrome_options)
     df_summary.index = df_summary.index + 1
     print(df_summary)
 
+    # Simpan data dalam format JSON
+    with open('output.json', 'w') as f:
+        json.dump(df_summary.to_dict(orient='records'), f, indent=4)
 
-
-
-# Simpan data dalam format JSON
-with open('output.json', 'w') as f:
-    # json.dump(data, f)
-    json.dump(df_summary, f)
-# finally:
-driver.quit()
+finally:
+    driver.quit()
