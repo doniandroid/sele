@@ -2,13 +2,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.ui import WebDriverWait, Select
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
-from webdriver_manager.chrome import ChromeDriverManager
-import time
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import json
 import pandas as pd
+from webdriver_manager.chrome import ChromeDriverManager
 
 # Data desa
 data_desa = [
@@ -81,22 +79,24 @@ try:
             "Warga_TP_PPK": jml_warga.replace("Showing 1 to 10 of ", "").replace(" entries", "").replace(",", "")
         })
 
-        df2 = pd.DataFrame(hasil)
-        df2.index = df2.index + 1
-        print(df2)
+    # Buat DataFrame dari hasil
+    df2 = pd.DataFrame(hasil)
+    df2.index = df2.index + 1
+
+    # Baca data existing dari file output.json jika ada
+    try:
         with open('output.json', 'r') as f:
             existing_data = json.load(f)
-        except FileNotFoundError:
-            existing_data = {}
-            existing_data.update(df2)
-          # Simpan data dalam format JSON
-         with open('output.json', 'w') as f:
-             json.dump(existing_data.to_dict(orient='records'), f, indent=4)
+    except FileNotFoundError:
+        existing_data = []
+
+    # Gabungkan data baru dengan data existing
+    combined_data = existing_data + df2.to_dict(orient='records')
+
+    # Simpan data gabungan ke file output.json
+    with open('output.json', 'w') as f:
+        json.dump(combined_data, f, indent=4)
+
 finally:
     # Tutup browser
     driver.quit()
-
-# # Buat DataFrame dari hasil
-# df2 = pd.DataFrame(hasil)
-# df2.index = df2.index + 1
-# print(df2)
