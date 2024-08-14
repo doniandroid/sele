@@ -81,11 +81,17 @@ try:
             "Warga_TP_PPK": jml_warga.replace("Showing 1 to 10 of ", "").replace(" entries", "").replace(",", "")
         })
 
+        df2 = pd.DataFrame(hasil)
+        df2.index = df2.index + 1
+        print(df2)
+         # Simpan data dalam format JSON
+         with open('output.json', 'w') as f:
+             json.dump(df2.to_dict(orient='records'), f, indent=4)
 finally:
     # Tutup browser
     driver.quit()
 
-# Buat DataFrame dari hasil
-df2 = pd.DataFrame(hasil)
-df2.index = df2.index + 1
-print(df2)
+# # Buat DataFrame dari hasil
+# df2 = pd.DataFrame(hasil)
+# df2.index = df2.index + 1
+# print(df2)
