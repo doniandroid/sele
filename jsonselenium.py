@@ -58,7 +58,7 @@ driver = webdriver.Chrome(service=driver_service, options=chrome_options)
 
 
 
-try:
+# try:
     # Buka URL halaman login
     driver.get("https://simpkk.kabsemarangtourism.id/index.php/login")
 
@@ -133,5 +133,5 @@ try:
 with open('output.json', 'w') as f:
     # json.dump(data, f)
     json.dump(df_summary, f)
-finally:
+# finally:
 driver.quit()
