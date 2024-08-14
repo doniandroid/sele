@@ -5,7 +5,7 @@ on:
     branches:
       - main
   repository_dispatch:
-    types: [post-http]
+    types: [trigger-event]
 
 jobs:
   build:
@@ -33,11 +33,11 @@ jobs:
           python jsonselenium.py
           python wargajiwa.py
 
-      - name: Upload JSON artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: selenium-output
-          path: output.json
+      # - name: Upload JSON artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: selenium-output
+      #     path: output.json
 
       - name: Commit JSON to GitHub Pages
         run: |
