@@ -38,6 +38,8 @@ jobs:
 
       - name: Commit JSON to GitHub Pages
         run: |
+          git config --global user.email "doniphantom@gmai.com"
+          git config --global user.name "doniphantom"
           git add output.json
           git commit -m "Update JSON output"
           git push origin main --force
