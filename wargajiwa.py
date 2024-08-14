@@ -1,3 +1,4 @@
+import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -87,15 +88,19 @@ try:
     try:
         with open('output.json', 'r') as f:
             existing_data = json.load(f)
+            existing_df = pd.DataFrame(existing_data)
     except FileNotFoundError:
-        existing_data = []
+        existing_df = pd.DataFrame()
 
-    # Gabungkan data baru dengan data existing
-    combined_data = existing_data + df2.to_dict(orient='records')
+    # Gabungkan data baru dengan data existing menggunakan merge
+    if not existing_df.empty:
+        merged_df = pd.merge(existing_df, df2, on="Desa", how="outer")
+    else:
+        merged_df = df2
 
     # Simpan data gabungan ke file output.json
     with open('output.json', 'w') as f:
-        json.dump(combined_data, f, indent=4)
+        json.dump(merged_df.to_dict(orient='records'), f, indent=4)
 
 finally:
     # Tutup browser
