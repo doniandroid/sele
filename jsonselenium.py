@@ -115,62 +115,44 @@ try:
 
     # Tampilkan DataFrame
     df_summary.index = df_summary.index + 1
-    # print(df_summary)
+
+    # Desain ulang data_counts
     desa_counts = {
-    "Kebonagung": 0,
-    "Candigaron": 0,
-    "Ngadikerso": 0,
-    "Lanjan": 0,
-    "Jubelan": 0,
-    "Sumowono": 0,
-    "Trayu": 0,
-    "Kemitir": 0,
-    "Duren": 0,
-    "Pledokan": 0,
-    "Mendongan": 0,
-    "Bumen": 0,
-    "Losari": 0,
-    "Kemawi": 0,
-    "Piyanggang": 0,
-    "Keseneng": 0
-}
+        "Kebonagung": 0,
+        "Candigaron": 0,
+        "Ngadikerso": 0,
+        "Lanjan": 0,
+        "Jubelan": 0,
+        "Sumowono": 0,
+        "Trayu": 0,
+        "Kemitir": 0,
+        "Duren": 0,
+        "Pledokan": 0,
+        "Mendongan": 0,
+        "Bumen": 0,
+        "Losari": 0,
+        "Kemawi": 0,
+        "Piyanggang": 0,
+        "Keseneng": 0
+    }
 
-# Hitung jumlah baris untuk setiap desa (Anda perlu menambahkan logika ini)
-# Contoh:
-for row in filtered_rows:
-    cols = row.split()
-    if len(cols) >= 3:
-        desa = cols[1]
-        if desa in desa_counts:
-            desa_counts[desa] += 1
+    # Hitung jumlah baris untuk setiap desa
+    for row in rows:
+        cols = row.find_elements(By.TAG_NAME, "td")
+        if len(cols) >= 2:
+            desa = cols[1].text
+            if desa in desa_counts:
+                desa_counts[desa] += 1
 
-# Jumlahkan total baris untuk setiap desa
-total_kebonagung = desa_counts["Kebonagung"]
-total_candigaron = desa_counts["Candigaron"]
-total_ngadikerso = desa_counts["Ngadikerso"]
-total_lanjan = desa_counts["Lanjan"]
-total_jubelan = desa_counts["Jubelan"]
-total_sumowono = desa_counts["Sumowono"]
-total_trayu = desa_counts["Trayu"]
-total_kemitir = desa_counts["Kemitir"]
-total_duren = desa_counts["Duren"]
-total_pledokan = desa_counts["Pledokan"]
-total_mendongan = desa_counts["Mendongan"]
-total_bumen = desa_counts["Bumen"]
-total_losari = desa_counts["Losari"]
-total_kemawi = desa_counts["Kemawi"]
-total_piyanggang = desa_counts["Piyanggang"]
-total_keseneng = desa_counts["Keseneng"]
+    # Buat DataFrame dari desa_counts
+    data = {
+        "Desa": list(desa_counts.keys()),
+        "Dawis": list(desa_counts.values())
+    }
+    df1 = pd.DataFrame(data)
 
-# Buat DataFrame
-data = {
-    "Desa": ["Kebonagung", "Candigaron", "Ngadikerso", "Lanjan", "Jubelan", "Sumowono", "Trayu", "Kemitir", "Duren", "Pledokan", "Mendongan", "Bumen", "Losari", "Kemawi", "Piyanggang", "Keseneng"],
-    "Dawis": [total_kebonagung, total_candigaron, total_ngadikerso, total_lanjan, total_jubelan, total_sumowono, total_trayu, total_kemitir, total_duren, total_pledokan, total_mendongan, total_bumen, total_losari, total_kemawi, total_piyanggang, total_keseneng]
-}
-df1 = pd.DataFrame(data)
-
-# Tampilkan DataFrame
-df1.index = df1.index + 1
+    # Tampilkan DataFrame
+    df1.index = df1.index + 1
 
     # Simpan data dalam format JSON
     with open('output.json', 'w') as f:
@@ -178,3 +160,4 @@ df1.index = df1.index + 1
 
 finally:
     driver.quit()
+
