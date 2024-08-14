@@ -43,3 +43,5 @@ jobs:
           git add output.json
           git commit -m "Update JSON output"
           git push origin main --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
