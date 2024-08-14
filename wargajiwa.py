@@ -84,9 +84,14 @@ try:
         df2 = pd.DataFrame(hasil)
         df2.index = df2.index + 1
         print(df2)
-         # Simpan data dalam format JSON
+        with open('output.json', 'r') as f:
+            existing_data = json.load(f)
+        except FileNotFoundError:
+            existing_data = {}
+            existing_data.update(df2)
+          # Simpan data dalam format JSON
          with open('output.json', 'w') as f:
-             json.dump(df2.to_dict(orient='records'), f, indent=4)
+             json.dump(existing_data.to_dict(orient='records'), f, indent=4)
 finally:
     # Tutup browser
     driver.quit()
