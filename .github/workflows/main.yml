@@ -30,26 +30,25 @@ jobs:
         pip install pandas
         # Install other dependencies if needed
 
-    - name: Convert Excel to JSON
+    - name: Convert Excel to JSON (Overwrite excel_output.json)
       run: |
         python -c "
-        import pandas as pd
-        df = pd.read_excel('buku_dawis.xlsx')
-        df.to_json('excel_output.json', orient='records', lines=True)
+import pandas as pd
+df = pd.read_excel('buku_dawis.xlsx')
+df.to_json('excel_output.json', orient='records', lines=True)
         "
-
+      
     - name: Run Selenium scripts
       run: |
         python jsonselenium.py
         python wargajiwa.py
 
-    - name: Commit JSON files to GitHub Pages
+    - name: Commit JSON files to GitHub Pages (Force overwrite)
       run: |
         git config --global user.email "doniphantom@gmail.com"
         git config --global user.name "doniphantom"
-        git add excel_output.json
-        git add output.json
-        git commit -m "Update JSON files from Excel and Selenium"
+        git add excel_output.json output.json
+        git commit --allow-empty -m 'Force update JSON files from Excel and Selenium'
         git push origin main
       env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
