@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '*.xlsx'
+    # paths:
+    #   - '*.xlsx'
   repository_dispatch:
     types: [trigger-event]
 
