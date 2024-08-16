@@ -28,6 +28,7 @@ jobs:
         pip install selenium
         pip install webdriver-manager
         pip install pandas
+        pip install openpyxl
         # Install other dependencies if needed
 
     - name: Convert Excel to JSON
