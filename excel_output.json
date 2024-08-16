@@ -1,16 +1,98 @@
-{"Desa":"Kebonagung","Dawis":53,"KRT":800,"Warga_TP_PPK":3249}
-{"Desa":"Candigaron","Dawis":90,"KRT":1848,"Warga_TP_PPK":5142}
-{"Desa":"Ngadikerso","Dawis":31,"KRT":623,"Warga_TP_PPK":2714}
-{"Desa":"Lanjan","Dawis":65,"KRT":1050,"Warga_TP_PPK":4328}
-{"Desa":"Jubelan","Dawis":55,"KRT":937,"Warga_TP_PPK":3601}
-{"Desa":"Sumowono","Dawis":45,"KRT":763,"Warga_TP_PPK":3102}
-{"Desa":"Trayu","Dawis":15,"KRT":229,"Warga_TP_PPK":1042}
-{"Desa":"Kemitir","Dawis":28,"KRT":407,"Warga_TP_PPK":1779}
-{"Desa":"Duren","Dawis":14,"KRT":240,"Warga_TP_PPK":795}
-{"Desa":"Pledokan","Dawis":24,"KRT":367,"Warga_TP_PPK":1424}
-{"Desa":"Mendongan","Dawis":16,"KRT":348,"Warga_TP_PPK":1369}
-{"Desa":"Bumen","Dawis":16,"KRT":293,"Warga_TP_PPK":904}
-{"Desa":"Losari","Dawis":29,"KRT":492,"Warga_TP_PPK":2025}
-{"Desa":"Kemawi","Dawis":26,"KRT":450,"Warga_TP_PPK":1679}
-{"Desa":"Piyanggang","Dawis":14,"KRT":286,"Warga_TP_PPK":1191}
-{"Desa":"Keseneng","Dawis":24,"KRT":407,"Warga_TP_PPK":1635}
+[
+    {
+        "Desa":"Kebonagung",
+        "Dawis":53,
+        "KRT":800,
+        "Warga_TP_PPK":3249
+    },
+    {
+        "Desa":"Candigaron",
+        "Dawis":90,
+        "KRT":1848,
+        "Warga_TP_PPK":5142
+    },
+    {
+        "Desa":"Ngadikerso",
+        "Dawis":31,
+        "KRT":623,
+        "Warga_TP_PPK":2714
+    },
+    {
+        "Desa":"Lanjan",
+        "Dawis":65,
+        "KRT":1050,
+        "Warga_TP_PPK":4328
+    },
+    {
+        "Desa":"Jubelan",
+        "Dawis":55,
+        "KRT":937,
+        "Warga_TP_PPK":3601
+    },
+    {
+        "Desa":"Sumowono",
+        "Dawis":45,
+        "KRT":763,
+        "Warga_TP_PPK":3102
+    },
+    {
+        "Desa":"Trayu",
+        "Dawis":15,
+        "KRT":229,
+        "Warga_TP_PPK":1042
+    },
+    {
+        "Desa":"Kemitir",
+        "Dawis":28,
+        "KRT":407,
+        "Warga_TP_PPK":1779
+    },
+    {
+        "Desa":"Duren",
+        "Dawis":14,
+        "KRT":240,
+        "Warga_TP_PPK":795
+    },
+    {
+        "Desa":"Pledokan",
+        "Dawis":24,
+        "KRT":367,
+        "Warga_TP_PPK":1424
+    },
+    {
+        "Desa":"Mendongan",
+        "Dawis":16,
+        "KRT":348,
+        "Warga_TP_PPK":1369
+    },
+    {
+        "Desa":"Bumen",
+        "Dawis":16,
+        "KRT":293,
+        "Warga_TP_PPK":904
+    },
+    {
+        "Desa":"Losari",
+        "Dawis":29,
+        "KRT":492,
+        "Warga_TP_PPK":2025
+    },
+    {
+        "Desa":"Kemawi",
+        "Dawis":26,
+        "KRT":450,
+        "Warga_TP_PPK":1679
+    },
+    {
+        "Desa":"Piyanggang",
+        "Dawis":14,
+        "KRT":286,
+        "Warga_TP_PPK":1191
+    },
+    {
+        "Desa":"Keseneng",
+        "Dawis":24,
+        "KRT":407,
+        "Warga_TP_PPK":1635
+    }
+]
