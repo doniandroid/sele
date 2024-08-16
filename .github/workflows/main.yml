@@ -33,9 +33,9 @@ jobs:
     - name: Convert Excel to JSON (Overwrite excel_output.json)
       run: |
         python -c "
-import pandas as pd
-df = pd.read_excel('buku_dawis.xlsx')
-df.to_json('excel_output.json', orient='records', lines=True)
+        import pandas as pd
+        df = pd.read_excel('buku_dawis.xlsx')
+        df.to_json('excel_output.json', orient='records', lines=True)
         "
       
     - name: Run Selenium scripts
