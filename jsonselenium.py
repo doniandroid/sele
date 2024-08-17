@@ -1,3 +1,33 @@
+# import json
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.support.ui import WebDriverWait, Select
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.keys import Keys
+# from webdriver_manager.chrome import ChromeDriverManager
+# import time
+# import pandas as pd
+# chrome_driver_path = "/usr/local/bin/chromedriver"
+# # Konfigurasi opsi Chrome
+# chrome_options = Options()
+# chrome_options.add_argument("--headless")  # Menjalankan Chrome dalam mode headless
+
+# # Setup selenium webdriver
+# driver_service = Service(ChromeDriverManager().install())
+# driver = webdriver.Chrome(service=driver_service, options=chrome_options)
+# # driver = webdriver.Chrome()
+# driver.get('http://example.com')
+
+# # Contoh data yang ingin diekstrak
+# data = {
+#     'title': driver.title,
+#     'url': driver.current_url
+# }
+# with open('output.json', 'w') as f:
+#     json.dump(data, f)
+
 import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -28,16 +58,20 @@ try:
         EC.presence_of_element_located((By.NAME, "username"))
     )
 
-    # Temukan elemen input untuk username dan password
+    # Temukan elemen input untuk username
     username_input = driver.find_element(By.NAME, "username")
-    password_input = driver.find_element(By.NAME, "password")
-    
-    # Isi input username dan password
+    # Isi input username
     username_input.send_keys("sumowono")
+
+    # Temukan elemen input untuk password
+    password_input = driver.find_element(By.NAME, "password")
+    # Isi input password
     password_input.send_keys("123")
 
-    # Temukan tombol Sign In dengan tag <button> dan klik
+    # Temukan tombol Sign In dengan tag <button>
     sign_in_button = driver.find_element(By.XPATH, "//button[text()='Sign In']")
+
+    # Klik tombol Sign In
     sign_in_button.click()
 
     # Navigasi ke halaman yang diperlukan
@@ -58,32 +92,71 @@ try:
     # Ambil data dari tabel
     rows = driver.find_elements(By.XPATH, "//table[@id='dataTable']/tbody/tr")
     
-    # Daftar nama desa yang diinginkan
-    desa_target = [
-        "Candigaron", "Lanjan", "Kebonagung", "Ngadikerso", "Jubelan", "Sumowono",
-        "Trayu", "Kemitir", "Duren", "Pledokan", "Mendongan", "Bumen", "Losari",
-        "Kemawi", "Piyanggang", "Keseneng"
-    ]
-
-    # Filter data berdasarkan nama desa
-    filtered_rows = []
+    data = []
     for row in rows:
         cols = row.find_elements(By.TAG_NAME, "td")
-        if len(cols) >= 3 and cols[0].text == 'Sumowono' and cols[1].text in desa_target:
-            filtered_rows.append({
-                "Nama_Kecamatan": cols[0].text,
-                "Nama_Desa/Kelurahan": cols[1].text
-            })
+        data.append({
+            "Nama_Kecamatan": cols[0].text,
+            "Nama_Desa/Kelurahan": cols[1].text
+        })
 
-    # Convert data yang difilter ke DataFrame
-    df_filtered = pd.DataFrame(filtered_rows)
+    # Convert data ke DataFrame
+    df = pd.DataFrame(data)
+
+    # Hitung jumlah entri per desa
+    desa_counts = df['Nama_Desa/Kelurahan'].value_counts()
+
+    # Buat DataFrame untuk hasil akhir
+    data_summary = {
+        "Desa": desa_counts.index,
+        "Jumlah": desa_counts.values
+    }
+    df_summary = pd.DataFrame(data_summary)
 
     # Tampilkan DataFrame
-    print(df_filtered)
+    df_summary.index = df_summary.index + 1
 
-    # Simpan data yang difilter dalam format JSON
-    with open('filtered_output.json', 'w') as f:
-        json.dump(df_filtered.to_dict(orient='records'), f, indent=4)
+    # Desain ulang data_counts
+    desa_counts = {
+        "Kebonagung": 0,
+        "Candigaron": 0,
+        "Ngadikerso": 0,
+        "Lanjan": 0,
+        "Jubelan": 0,
+        "Sumowono": 0,
+        "Trayu": 0,
+        "Kemitir": 0,
+        "Duren": 0,
+        "Pledokan": 0,
+        "Mendongan": 0,
+        "Bumen": 0,
+        "Losari": 0,
+        "Kemawi": 0,
+        "Piyanggang": 0,
+        "Keseneng": 0
+    }
+
+    # Hitung jumlah baris untuk setiap desa
+    for row in rows:
+        cols = row.find_elements(By.TAG_NAME, "td")
+        if len(cols) >= 2:
+            desa = cols[1].text
+            if desa in desa_counts:
+                desa_counts[desa] += 1
+
+    # Buat DataFrame dari desa_counts
+    data = {
+        "Desa": list(desa_counts.keys()),
+        "Dawis": list(desa_counts.values())
+    }
+    df1 = pd.DataFrame(data)
+
+    # Tampilkan DataFrame
+    df1.index = df1.index + 1
+
+    # Simpan data dalam format JSON
+    with open('output.json', 'w') as f:
+        json.dump(df1.to_dict(orient='records'), f, indent=4)
 
 finally:
     driver.quit()
