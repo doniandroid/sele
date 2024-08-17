@@ -91,17 +91,40 @@ try:
 
     # Ambil data dari tabel
     rows = driver.find_elements(By.XPATH, "//table[@id='dataTable']/tbody/tr")
+
     
-    data = []
+    # data = []
+    # for row in rows:
+    #     cols = row.find_elements(By.TAG_NAME, "td")
+    #     data.append({
+    #         "Nama_Kecamatan": cols[0].text,
+    #         "Nama_Desa/Kelurahan": cols[1].text
+    #     })
+
+    # List desa yang akan difilter
+    desa_list = [
+        'Candigaron', 'Lanjan', 'Kebonagung', 'Ngadikerso', 'Jubelan', 'Sumowono',
+        'Trayu', 'Kemitir', 'Duren', 'Pledokan', 'Mendongan', 'Bumen', 
+        'Losari', 'Kemawi', 'Piyanggang', 'Keseneng'
+    ]
+    
+    # Filter data
+    filtered_rows = []
     for row in rows:
         cols = row.find_elements(By.TAG_NAME, "td")
-        data.append({
-            "Nama_Kecamatan": cols[0].text,
-            "Nama_Desa/Kelurahan": cols[1].text
-        })
+        if len(cols) >= 2 and cols[0].text == 'Sumowono' and cols[1].text in desa_list:
+            filtered_rows.append({
+                "Nama_Kecamatan": cols[0].text,
+                "Nama_Desa/Kelurahan": cols[1].text
+            })
+    
+    # Convert data yang difilter ke DataFrame
+    # df_filtered = pd.DataFrame(filtered_rows)
 
+    
     # Convert data ke DataFrame
-    df = pd.DataFrame(data)
+    # df = pd.DataFrame(data)
+    df = pd.DataFrame(filtered_rows)
 
     # Hitung jumlah entri per desa
     desa_counts = df['Nama_Desa/Kelurahan'].value_counts()
