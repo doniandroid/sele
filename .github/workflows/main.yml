@@ -1,13 +1,14 @@
 name: Process Excel and Run Selenium Tests
 
 on:
+  # Memicu workflow saat repository_dispatch event diterima
+  repository_dispatch:
+    types: [custom-event] # Sesuaikan dengan jenis event yang kamu definisikan
+
+  # Memicu workflow saat terjadi push ke branch tertentu, misalnya 'main'
   push:
     branches:
       - main
-    # paths:
-    #   - '*.xlsx'
-  repository_dispatch:
-    types: [trigger-event]
 
 jobs:
   process_and_test:
