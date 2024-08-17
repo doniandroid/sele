@@ -109,11 +109,11 @@ try:
     ]
     
     # Filter data
-    filtered_rows = []
+    data = []
     for row in rows:
         cols = row.find_elements(By.TAG_NAME, "td")
         if len(cols) >= 2 and cols[0].text == 'Sumowono' and cols[1].text in desa_list:
-            filtered_rows.append({
+            data.append({
                 "Nama_Kecamatan": cols[0].text,
                 "Nama_Desa/Kelurahan": cols[1].text
             })
@@ -124,7 +124,7 @@ try:
     
     # Convert data ke DataFrame
     # df = pd.DataFrame(data)
-    df = pd.DataFrame(filtered_rows)
+    df = pd.DataFrame(data)
 
     # Hitung jumlah entri per desa
     desa_counts = df['Nama_Desa/Kelurahan'].value_counts()
