@@ -51,7 +51,7 @@ driver = webdriver.Chrome(service=driver_service, options=chrome_options)
 
 try:
     # Buka URL halaman login
-    driver.get("https://simpkk.kabsemarangtourism.id/index.php/login")
+    driver.get("https://simpkk.kabsemarangtourism.id/index.php/login")  # Sesuaikan dengan URL halaman login Anda
 
     # Tunggu hingga elemen input username muncul
     WebDriverWait(driver, 10).until(
@@ -74,72 +74,55 @@ try:
     # Klik tombol Sign In
     sign_in_button.click()
 
-    # Navigasi ke halaman yang diperlukan
-    driver.get("https://simpkk.kabsemarangtourism.id/admin/dawis")
+    # # Tunggu beberapa saat untuk memastikan halaman berikutnya dimuat
+    # WebDriverWait(driver, 10).until(
+    #     EC.title_contains("Dashboard")  # Sesuaikan dengan judul halaman setelah login
+    # )
+    WebDriverWait(driver, 10)
+    # Cetak judul halaman setelah login
+    # nama_admin = driver.find_element(By.XPATH, "//ul[@class='navbar-nav ml-auto']//a[@class='nav-link']")
+  #  ok
+    # nama_admin = driver.find_element(By.XPATH, "//div[@class='card dashboard text-white bg-primary o-hidden h-100']//h5")
+    # print("Alamat url halaman setelah login:", driver.current_url)
+    # print("Nama Admin: ", nama_admin.text)
 
-    # Tunggu hingga tabel muncul
+    driver.get("https://simpkk.kabsemarangtourism.id/admin/dawis")  # Sesuaikan dengan URL halaman baru
     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//table[@id='dataTable']")))
-
-    # Temukan elemen select dan pilih jumlah entri
+    # Temukan elemen select untuk menampilkan jumlah entri
     select_elem = driver.find_element(By.NAME, "dataTable_length")
     select = Select(select_elem)
+    # Tambahkan opsi baru secara manual
     driver.execute_script("arguments[0].innerHTML += '<option value=\"20000\">20000</option>';", select_elem)
+
+    # Pilih opsi 20000 dengan cara mengirimkan keyboard keys pada elemen select
+    select_elem.send_keys(Keys.DOWN)  # Memastikan kursor di bawah
+    select_elem.send_keys(Keys.RETURN)  # Memilih opsi 20000
     select.select_by_value('20000')
 
-    # Tunggu beberapa saat untuk memastikan tabel baru dimuat
+        # Tunggu beberapa saat untuk memastikan tabel baru dimuat
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//table[@id='dataTable']/tbody/tr")))
 
-    # Ambil data dari tabel
-    rows = driver.find_elements(By.XPATH, "//table[@id='dataTable']/tbody/tr")
+    jml_warga = driver.find_element(By.XPATH, "//table[@id='dataTable']").text
+    # Pisahkan baris menjadi list
+    rows = jml_warga.split('\n')
 
-    
-    # data = []
-    # for row in rows:
-    #     cols = row.find_elements(By.TAG_NAME, "td")
-    #     data.append({
-    #         "Nama_Kecamatan": cols[0].text,
-    #         "Nama_Desa/Kelurahan": cols[1].text
-    #     })
-
-    # List desa yang akan difilter
-    desa_list = [
-        'Candigaron', 'Lanjan', 'Kebonagung', 'Ngadikerso', 'Jubelan', 'Sumowono',
-        'Trayu', 'Kemitir', 'Duren', 'Pledokan', 'Mendongan', 'Bumen', 
-        'Losari', 'Kemawi', 'Piyanggang', 'Keseneng'
-    ]
-    
-    # Filter data
-    data = []
+    # Filter data berdasarkan Nama_Kecamatan = Sumowono dan Nama_Desa/Kelurahan = Lanjan
+    filtered_rows = []
     for row in rows:
-        cols = row.find_elements(By.TAG_NAME, "td")
-        if len(cols) >= 2 and cols[0].text == 'Sumowono' and cols[1].text in desa_list:
-            data.append({
-                "Nama_Kecamatan": cols[0].text,
-                "Nama_Desa/Kelurahan": cols[1].text
-            })
+        cols = row.split()
+        if len(cols) >= 3 and cols[0] == 'Sumowono' and (cols[1] == 'Candigaron' or cols[1] == 'Lanjan' or cols[1] == 'Kebonagung' or cols[1] == 'Ngadikerso' or cols[1] == 'Jubelan' or cols[1] == 'Sumowono' or cols[1] == 'Trayu' or cols[1] == 'Kemitir' or cols[1] == 'Duren' or cols[1] == 'Pledokan' or cols[1] == 'Mendongan' or cols[1] == 'Bumen' or cols[1] == 'Losari' or cols[1] == 'Kemawi' or cols[1] == 'Piyanggang' or cols[1] == 'Keseneng'):
+            filtered_rows.append(row)
+
+    # Cetak hasil filter
+    # if filtered_rows:
+    #     print("Hasil Filter:")
+    #     for row in filtered_rows:
+    #         print(row)
+    # else:
+    #     print("Tidak ada hasil yang cocok dengan filter.")
     
-    # Convert data yang difilter ke DataFrame
-    # df_filtered = pd.DataFrame(filtered_rows)
 
-    
-    # Convert data ke DataFrame
-    # df = pd.DataFrame(data)
-    df = pd.DataFrame(data)
-
-    # Hitung jumlah entri per desa
-    desa_counts = df['Nama_Desa/Kelurahan'].value_counts()
-
-    # Buat DataFrame untuk hasil akhir
-    data_summary = {
-        "Desa": desa_counts.index,
-        "Jumlah": desa_counts.values
-    }
-    df_summary = pd.DataFrame(data_summary)
-
-    # Tampilkan DataFrame
-    df_summary.index = df_summary.index + 1
-
-    # Desain ulang data_counts
+    # Inisialisasi dictionary untuk menyimpan jumlah setiap desa
     desa_counts = {
         "Kebonagung": 0,
         "Candigaron": 0,
@@ -159,18 +142,37 @@ try:
         "Keseneng": 0
     }
 
-    # Hitung jumlah baris untuk setiap desa
-    for row in rows:
-        cols = row.find_elements(By.TAG_NAME, "td")
-        if len(cols) >= 2:
-            desa = cols[1].text
+    # Hitung jumlah baris untuk setiap desa (Anda perlu menambahkan logika ini)
+    # Contoh:
+    for row in filtered_rows:
+        cols = row.split()
+        if len(cols) >= 3:
+            desa = cols[1]
             if desa in desa_counts:
                 desa_counts[desa] += 1
 
-    # Buat DataFrame dari desa_counts
+    # Jumlahkan total baris untuk setiap desa
+    total_kebonagung = desa_counts["Kebonagung"]
+    total_candigaron = desa_counts["Candigaron"]
+    total_ngadikerso = desa_counts["Ngadikerso"]
+    total_lanjan = desa_counts["Lanjan"]
+    total_jubelan = desa_counts["Jubelan"]
+    total_sumowono = desa_counts["Sumowono"]
+    total_trayu = desa_counts["Trayu"]
+    total_kemitir = desa_counts["Kemitir"]
+    total_duren = desa_counts["Duren"]
+    total_pledokan = desa_counts["Pledokan"]
+    total_mendongan = desa_counts["Mendongan"]
+    total_bumen = desa_counts["Bumen"]
+    total_losari = desa_counts["Losari"]
+    total_kemawi = desa_counts["Kemawi"]
+    total_piyanggang = desa_counts["Piyanggang"]
+    total_keseneng = desa_counts["Keseneng"]
+
+    # Buat DataFrame
     data = {
-        "Desa": list(desa_counts.keys()),
-        "Dawis": list(desa_counts.values())
+        "Desa": ["Kebonagung", "Candigaron", "Ngadikerso", "Lanjan", "Jubelan", "Sumowono", "Trayu", "Kemitir", "Duren", "Pledokan", "Mendongan", "Bumen", "Losari", "Kemawi", "Piyanggang", "Keseneng"],
+        "Dawis": [total_kebonagung, total_candigaron, total_ngadikerso, total_lanjan, total_jubelan, total_sumowono, total_trayu, total_kemitir, total_duren, total_pledokan, total_mendongan, total_bumen, total_losari, total_kemawi, total_piyanggang, total_keseneng]
     }
     df1 = pd.DataFrame(data)
 
