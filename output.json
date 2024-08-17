@@ -2,97 +2,129 @@
     {
         "Desa": "Bumen",
         "Dawis": 16,
-        "KRT": "278",
-        "Warga_TP_PPK": "831"
+        "KRT_x": "278",
+        "Warga_TP_PPK_x": "831",
+        "KRT_y": "278",
+        "Warga_TP_PPK_y": "831"
     },
     {
         "Desa": "Candigaron",
         "Dawis": 90,
-        "KRT": "1345",
-        "Warga_TP_PPK": "4204"
+        "KRT_x": "1345",
+        "Warga_TP_PPK_x": "4204",
+        "KRT_y": "1345",
+        "Warga_TP_PPK_y": "4204"
     },
     {
         "Desa": "Duren",
         "Dawis": 225,
-        "KRT": "245",
-        "Warga_TP_PPK": "682"
+        "KRT_x": "245",
+        "Warga_TP_PPK_x": "682",
+        "KRT_y": "245",
+        "Warga_TP_PPK_y": "682"
     },
     {
         "Desa": "Jubelan",
         "Dawis": 55,
-        "KRT": "899",
-        "Warga_TP_PPK": "3130"
+        "KRT_x": "899",
+        "Warga_TP_PPK_x": "3130",
+        "KRT_y": "899",
+        "Warga_TP_PPK_y": "3130"
     },
     {
         "Desa": "Kebonagung",
         "Dawis": 53,
-        "KRT": "814",
-        "Warga_TP_PPK": "2889"
+        "KRT_x": "814",
+        "Warga_TP_PPK_x": "2889",
+        "KRT_y": "814",
+        "Warga_TP_PPK_y": "2889"
     },
     {
         "Desa": "Kemawi",
         "Dawis": 26,
-        "KRT": "450",
-        "Warga_TP_PPK": "1559"
+        "KRT_x": "450",
+        "Warga_TP_PPK_x": "1559",
+        "KRT_y": "450",
+        "Warga_TP_PPK_y": "1559"
     },
     {
         "Desa": "Kemitir",
         "Dawis": 28,
-        "KRT": "554",
-        "Warga_TP_PPK": "1565"
+        "KRT_x": "554",
+        "Warga_TP_PPK_x": "1565",
+        "KRT_y": "554",
+        "Warga_TP_PPK_y": "1565"
     },
     {
         "Desa": "Keseneng",
         "Dawis": 27,
-        "KRT": "395",
-        "Warga_TP_PPK": "1300"
+        "KRT_x": "395",
+        "Warga_TP_PPK_x": "1300",
+        "KRT_y": "395",
+        "Warga_TP_PPK_y": "1300"
     },
     {
         "Desa": "Lanjan",
         "Dawis": 75,
-        "KRT": "1027",
-        "Warga_TP_PPK": "3940"
+        "KRT_x": "1027",
+        "Warga_TP_PPK_x": "3940",
+        "KRT_y": "1027",
+        "Warga_TP_PPK_y": "3940"
     },
     {
         "Desa": "Losari",
         "Dawis": 29,
-        "KRT": "506",
-        "Warga_TP_PPK": "1875"
+        "KRT_x": "506",
+        "Warga_TP_PPK_x": "1875",
+        "KRT_y": "506",
+        "Warga_TP_PPK_y": "1875"
     },
     {
         "Desa": "Mendongan",
         "Dawis": 16,
-        "KRT": "448",
-        "Warga_TP_PPK": "1288"
+        "KRT_x": "448",
+        "Warga_TP_PPK_x": "1288",
+        "KRT_y": "448",
+        "Warga_TP_PPK_y": "1288"
     },
     {
         "Desa": "Ngadikerso",
         "Dawis": 31,
-        "KRT": "642",
-        "Warga_TP_PPK": "2427"
+        "KRT_x": "642",
+        "Warga_TP_PPK_x": "2427",
+        "KRT_y": "642",
+        "Warga_TP_PPK_y": "2427"
     },
     {
         "Desa": "Piyanggang",
         "Dawis": 15,
-        "KRT": "296",
-        "Warga_TP_PPK": "980"
+        "KRT_x": "296",
+        "Warga_TP_PPK_x": "980",
+        "KRT_y": "296",
+        "Warga_TP_PPK_y": "980"
     },
     {
         "Desa": "Pledokan",
         "Dawis": 33,
-        "KRT": "479",
-        "Warga_TP_PPK": "1257"
+        "KRT_x": "479",
+        "Warga_TP_PPK_x": "1257",
+        "KRT_y": "479",
+        "Warga_TP_PPK_y": "1257"
     },
     {
         "Desa": "Sumowono",
         "Dawis": 48,
-        "KRT": "709",
-        "Warga_TP_PPK": "2281"
+        "KRT_x": "709",
+        "Warga_TP_PPK_x": "2281",
+        "KRT_y": "709",
+        "Warga_TP_PPK_y": "2281"
     },
     {
         "Desa": "Trayu",
         "Dawis": 15,
-        "KRT": "354",
-        "Warga_TP_PPK": "1005"
+        "KRT_x": "354",
+        "Warga_TP_PPK_x": "1005",
+        "KRT_y": "354",
+        "Warga_TP_PPK_y": "1005"
     }
 ]
