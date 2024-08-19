@@ -30,6 +30,7 @@ jobs:
         pip install webdriver-manager
         pip install pandas
         pip install openpyxl
+        pip install pytz
         # Install other dependencies if needed
 
     - name: Convert Excel to JSON
@@ -41,14 +42,19 @@ jobs:
         df.to_json('excel_output.json', orient='records', indent=4)
         "
 
-    - name: Save last execution date and time to JSON
+    - name: Save last execution date and time to JSON (WIB)
       run: |
         python -c "
         import json
         from datetime import datetime
+        import pytz
+
+        # Set timezone to Asia/Jakarta (WIB)
+        timezone = pytz.timezone('Asia/Jakarta')
+        now = datetime.now(timezone)
 
         data = {
-            'last_execution': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            'last_execution': now.strftime('%Y-%m-%d %H:%M:%S WIB')
         }
 
         with open('tanggal.json', 'w') as f:
