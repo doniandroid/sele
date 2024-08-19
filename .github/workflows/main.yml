@@ -41,6 +41,20 @@ jobs:
         df.to_json('excel_output.json', orient='records', indent=4)
         "
 
+    - name: Save last execution date and time to JSON
+      run: |
+        python -c "
+        import json
+        from datetime import datetime
+
+        data = {
+            'last_execution': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        }
+
+        with open('tanggal.json', 'w') as f:
+            json.dump(data, f, indent=4)
+        "
+
     - name: Run Selenium scripts
       run: |
         python jsonselenium.py
@@ -50,6 +64,7 @@ jobs:
       run: |
         git config --global user.email "doniphantom@gmail.com"
         git config --global user.name "doniphantom"
+        git add tanggal.json
         git add excel_output.json
         git add output.json
         git commit -m "Update JSON files from Excel and Selenium"
