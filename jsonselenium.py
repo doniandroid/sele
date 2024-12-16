@@ -51,7 +51,7 @@ driver = webdriver.Chrome(service=driver_service, options=chrome_options)
 
 try:
     # Buka URL halaman login
-    driver.get("https://simpkk.kabsemarangtourism.id/index.php/login")  # Sesuaikan dengan URL halaman login Anda
+    driver.get("https://simbarjaga.kabsemarangtourism.id/login")  # Sesuaikan dengan URL halaman login Anda
 
     # Tunggu hingga elemen input username muncul
     WebDriverWait(driver, 10).until(
@@ -86,7 +86,7 @@ try:
     # print("Alamat url halaman setelah login:", driver.current_url)
     # print("Nama Admin: ", nama_admin.text)
 
-    driver.get("https://simpkk.kabsemarangtourism.id/admin/dawis")  # Sesuaikan dengan URL halaman baru
+    driver.get("https://simbarjaga.kabsemarangtourism.id/admin/dawis")  # Sesuaikan dengan URL halaman baru
     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, "//table[@id='dataTable']")))
     # Temukan elemen select untuk menampilkan jumlah entri
     select_elem = driver.find_element(By.NAME, "dataTable_length")
