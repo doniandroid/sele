@@ -44,7 +44,7 @@ hasil = []
 try:
     for desa in data_desa:
         # Buka URL halaman login
-        driver.get("https://simpkk.kabsemarangtourism.id/index.php/login")
+        driver.get("https://simbarjaga.kabsemarangtourism.id/login")
 
         # Tunggu hingga elemen input username muncul
         WebDriverWait(driver, 10).until(
@@ -64,12 +64,12 @@ try:
         WebDriverWait(driver, 10)
 
         # Pindah ke halaman KRT
-        driver.get("https://simpkk.kabsemarangtourism.id/users/registrasi")
+        driver.get("https://simbarjaga.kabsemarangtourism.id/users/registrasi")
         WebDriverWait(driver, 10)
         jml_krt = driver.find_element(By.XPATH, "//div[@class='dataTables_info']").text
 
         # Pindah ke halaman warga TP PPK
-        driver.get("https://simpkk.kabsemarangtourism.id/users/userslistwarga")
+        driver.get("https://simbarjaga.kabsemarangtourism.id/users/userslistwarga")
         WebDriverWait(driver, 10)
         jml_warga = driver.find_element(By.XPATH, "//div[@class='dataTables_info']").text
 
